@@ -1,15 +1,16 @@
-<?php
-
-include_once("Connection.php");
-
+<?php 
 class UserLogin{
-
+	private $db;
+    public function __construct()
+    {
+        $this->db = new Connection();
+        $this->db = $this->db->dbConnect();
+    }
 
     public function LogIn($uname,$pass){
         if(!empty($uname) && !empty($pass))
         {
-			$this->db= new Connection();
-            $stmt=$this->db->db->prepare("SELECT * FROM customer WHERE CustomerEmail= ? AND CustomerPassword= ? ");
+            $stmt=$this->db->prepare("SELECT * FROM customer WHERE CustomerEmail= ? AND CustomerPassword= ? ");
             $stmt->bindParam(1,$uname);
             $stmt->bindParam(2,$pass);
             $stmt->execute();
